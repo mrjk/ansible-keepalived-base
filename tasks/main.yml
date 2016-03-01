@@ -37,19 +37,11 @@
 #- name: Enable IP forwarding
 #  sysctl: name=net.ipv4.ip_forward value=1 state=present sysctl_file=/etc/sysctl.d/net_forward.conf
 
-
 - name: Start keepalived
   service: name=keepalived state=running enabled=yes
 
 - name: Push notify script
   template:
     src: keepalived_notify.sh.j2
-    dest: /usr/local/bin/keepalived_notify
+    dest: /usr/local/lib/keepalived_notify
     mode: "u=rwx,g=rx,o=rx"
-
-- name: Push monitoring script
-  template:
-    src: keepalived_status.sh.j2
-    dest: /usr/local/bin/sfl_kpv_status
-    mode: "u=rwx,g=rx,o=rx"
-
